@@ -1,0 +1,35 @@
+public class EnumSortP {
+    //1 1
+    public int[] data;
+    public int[] sortedData;
+    public Timer t;
+
+    public int threadFinish=0;
+    public void sort()
+    {
+        data=Main.getData();
+        sortedData=new int[data.length];
+
+        t=new Timer();
+        t.timerBegin();
+
+        int part=data.length/Main.threadNum;
+        int begin=0;int end=part;
+        for(int i=0;i<Main.threadNum;i++)
+        {
+            EnumSortP_Thread th=new EnumSortP_Thread();
+            th.setValue(begin,end-1,this);
+            th.start();
+            begin=end;
+            end+=part;
+            if(i+2==Main.threadNum)
+                end=data.length;
+        }
+
+        synchronized (this)
+        {
+            while(threadFinish!=Main.threadNum);
+            t.timerEnd(1,1);
+        }
+    }
+}
