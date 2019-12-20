@@ -12,16 +12,15 @@ public class Main {
     {
         read();
         globalTime=new double[2][3];
-        /*
+
         new QuickSort().sort();
         new QuickSortP().sort();
-         */
+
         new EnumSort().sort();
         new EnumSortP().sort();
-        /*
+
         new MergeSort().sort();
         new MergeSortP().sort();
-         */
     }
 
     private static void read()

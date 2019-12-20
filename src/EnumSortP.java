@@ -1,10 +1,12 @@
+import java.util.concurrent.CountDownLatch;
+
 public class EnumSortP {
     //1 1
     public int[] data;
     public int[] sortedData;
     public Timer t;
 
-    public int threadFinish=0;
+    public CountDownLatch cdl=new CountDownLatch(Main.threadNum);
     public void sort()
     {
         data=Main.getData();
@@ -26,10 +28,13 @@ public class EnumSortP {
                 end=data.length;
         }
 
-        synchronized (this)
-        {
-            while(threadFinish!=Main.threadNum);
+        try {
+            cdl.await();
             t.timerEnd(1,1);
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
         }
     }
 }

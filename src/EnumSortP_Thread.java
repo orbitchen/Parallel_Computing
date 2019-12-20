@@ -32,9 +32,7 @@ public class EnumSortP_Thread extends Thread {
         for(int i=indexBegin;i<=indexEnd;i++)
             sortOne(i);
 
-        synchronized (this){
-            father.threadFinish++;
-        }
+        father.cdl.countDown();
 
     }
 
