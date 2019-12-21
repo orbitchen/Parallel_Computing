@@ -36,7 +36,10 @@ public class MergeSort {
         t.timerBegin();
         mergeSort(0,data.length-1);
         t.timerEnd(0,2);
+    }
 
-
+    public int[] getSortedData()
+    {
+        return data;
     }
 }

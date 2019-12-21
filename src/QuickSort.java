@@ -43,4 +43,9 @@ public class QuickSort {
         t.timerEnd(0,0);
 
     }
+
+    public int[] getSortedData()
+    {
+        return data;
+    }
 }

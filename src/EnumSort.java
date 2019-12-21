@@ -2,6 +2,7 @@ public class EnumSort {
     //0 1
     private int[] data;
     private int[] sortedData;
+    //在sortedData中
     private void sortOne(int location)
     {
         //获得data[location]应该所在的新的位置，并放置。
@@ -24,5 +25,10 @@ public class EnumSort {
         for(int i=0;i<data.length;i++)
             sortOne(i);
         t.timerEnd(0,1);
+    }
+
+    public int[] getSortedData()
+    {
+        return sortedData;
     }
 }

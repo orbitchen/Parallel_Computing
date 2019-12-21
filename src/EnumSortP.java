@@ -37,4 +37,9 @@ public class EnumSortP {
             e.printStackTrace();
         }
     }
+
+    public int[] getSortedData()
+    {
+        return sortedData;
+    }
 }
