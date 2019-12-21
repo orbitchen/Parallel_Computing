@@ -91,6 +91,7 @@ public class MergeSortP_Thread extends Thread {
 
     private void phase2()
     {
+        /*
         int begin=0;
         int j=0;
 
@@ -110,6 +111,51 @@ public class MergeSortP_Thread extends Thread {
             }
         }
         brothers[j].phase2Received[ID]=Arrays.copyOfRange(data,begin,data.length);
+
+         */
+        int begin=0;
+        int end=0;
+        for(int i=0;i<Main.threadNum;i++)
+        {
+            if(i==0)
+            {
+                begin=-99999;
+                end=phase2Sample[0];
+
+            }
+            else if(i==Main.threadNum-1)
+            {
+                begin=phase2Sample[Main.threadNum-2];
+                end=99999;
+            }
+            else
+            {
+                begin=phase2Sample[i-1];
+                end=phase2Sample[i];
+            }
+
+            if(end<data[0]||begin>=data[data.length-1])
+                continue;
+
+            int data_begin,data_end;
+            data_begin=data_end=0;
+            for(int j=0;j<data.length;j++)
+            {
+                if (data[j] > begin) {
+                    data_begin = j;
+                    break;
+                }
+            }
+            for(int j=0;j<data.length;j++)
+            {
+                if(data[j]<=end)
+                    data_end=j;
+                else
+                    break;
+            }
+
+            brothers[i].phase2Received[ID]=Arrays.copyOfRange(data,data_begin,data_end+1);
+        }
     }
 
     private void phase3()

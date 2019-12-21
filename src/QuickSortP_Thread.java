@@ -9,7 +9,7 @@ public class QuickSortP_Thread extends Thread {
     int begin;
     int end;
 
-    public static final int MAX=128;
+    public static int MAX=8165;//本机优化结果
 
     private void exchange(int a,int b)
     {

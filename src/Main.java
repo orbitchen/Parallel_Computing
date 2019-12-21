@@ -7,15 +7,46 @@ public class Main {
     //快排 枚举 归并
     public static int[] data;
     public static double[][] globalTime;
-    public static final int threadNum=4;
+    public static final int threadNum=16;
     //线程数量
     static int[][] sortedData=new int[6][];
+
+    /*测试用*/
+    static int TEST_NUM=20000;
+    static double[][] testArray=new double[TEST_NUM][2];
+    static boolean TEST=false;
+
     public static void main(String[] argv)
     {
         read();
         globalTime=new double[2][3];
 
         try {
+
+            if(TEST)
+            {
+                double min_time=999999;
+                int max=0;
+                for(int i=10;i<TEST_NUM;i++)
+                {
+                    QuickSortP_Thread.MAX=i;
+                    QuickSortP qsp=new QuickSortP();
+                    qsp.sort();
+                    if(globalTime[1][0]<min_time)
+                    {
+                        min_time=globalTime[1][0];
+                        max=i;
+                    }
+                    testArray[i][0]=i;
+                    testArray[i][1]=globalTime[1][0];
+                }
+
+                System.out.println("测试完成：最优 "+max);
+                BufferedWriter bw=new BufferedWriter(new FileWriter("QuickSortP_time.csv"));
+                for(int i=0;i<TEST_NUM;i++)
+                    bw.write(testArray[i][0]+","+testArray[i][1]+"\n");
+                bw.close();
+            }
 
             QuickSort qs=new QuickSort();
             qs.sort();sortedData[0]=qs.getSortedData();
@@ -38,8 +69,12 @@ public class Main {
             Arrays.sort(data);
             for(int i=0;i<6;i++)
             {
-                if(!Arrays.equals(data,sortedData[i]))
-                    System.out.println("排序结果错误："+i);
+                if(!Arrays.equals(data,sortedData[i])) {
+                    System.out.println("排序结果错误：" + i);
+                    for(int j=0;j<data.length;j++)
+                        if(data[j]!=sortedData[i][j])
+                            System.out.println("不等处："+j+","+data[j]+","+sortedData[i][j]);
+                }
             }
 
             writeFiles();
